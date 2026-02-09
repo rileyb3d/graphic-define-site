@@ -55,7 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .filter(Boolean)
       .join('\n')
 
-    const { error } = await resend.emails.send({
+    const { error: errInquiry } = await resend.emails.send({
       from,
       to: TO_EMAIL,
       replyTo: email,
@@ -63,10 +63,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       text,
     })
 
-    if (error) {
-      console.error('Resend error:', error)
-      const message = typeof error === 'object' && error !== null && 'message' in error ? String((error as { message: string }).message) : 'Failed to send'
+    if (errInquiry) {
+      console.error('Resend error:', errInquiry)
+      const message = typeof errInquiry === 'object' && errInquiry !== null && 'message' in errInquiry ? String((errInquiry as { message: string }).message) : 'Failed to send'
       return res.status(500).json({ error: message })
+    }
+
+    const confirmText = `Hi ${name.trim()},\n\nWe got your message and will review it and get back to you as soon as we can.\n\n— Graphic Define`
+    const { error: errConfirm } = await resend.emails.send({
+      from,
+      to: email.trim(),
+      subject: 'We got your message – Graphic Define',
+      text: confirmText,
+    })
+
+    if (errConfirm) {
+      console.error('Resend confirmation error:', errConfirm)
+      // Inquiry already sent; don't fail the request, just log
     }
 
     return res.status(200).json({ ok: true })
