@@ -28,6 +28,7 @@ const INPUT_CLASS =
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -36,6 +37,7 @@ export default function ContactPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
+    setSubmitError(null)
 
     const form = e.currentTarget
     const data = new FormData(form)
@@ -63,11 +65,7 @@ export default function ContactPage() {
         throw new Error(err.error || 'Failed to send')
       }
     } catch {
-      const subject = encodeURIComponent(`New project inquiry from ${payload.name}`)
-      const body = encodeURIComponent(
-        `Name: ${payload.name}\nBusiness: ${payload.business}\nEmail: ${payload.email}\nProject type: ${payload.projectType}\nBudget: ${payload.budget}\n\nDetails:\n${payload.details}`
-      )
-      window.location.href = `mailto:riley@graphicdefine.com?subject=${subject}&body=${body}`
+      setSubmitError('Something went wrong sending your message. Please email us directly at riley@graphicdefine.com.')
     }
     setSending(false)
   }
@@ -251,6 +249,15 @@ export default function ContactPage() {
                         className={INPUT_CLASS + ' resize-none'}
                       />
                     </div>
+
+                    {submitError && (
+                      <div className="rounded-xl border border-[var(--color-gd-border)] bg-[var(--color-gd-bg-elevated)] px-4 py-3 text-sm text-[var(--color-gd-muted)]">
+                        {submitError}{' '}
+                        <a href="mailto:riley@graphicdefine.com" className="text-[var(--color-gd-text)] underline hover:no-underline">
+                          riley@graphicdefine.com
+                        </a>
+                      </div>
+                    )}
 
                     <div className="flex items-center justify-between pt-2">
                       <p className="text-xs text-[var(--color-gd-muted)]">
