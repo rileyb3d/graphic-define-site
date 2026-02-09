@@ -40,24 +40,32 @@ export default function ContactPage() {
     const form = e.currentTarget
     const data = new FormData(form)
 
+    const payload = {
+      name: (data.get('name') as string)?.trim(),
+      business: (data.get('business') as string)?.trim(),
+      email: (data.get('email') as string)?.trim(),
+      projectType: (data.get('projectType') as string) || '',
+      budget: (data.get('budget') as string) || '',
+      existingSite: (data.get('existingSite') as string)?.trim() || undefined,
+      details: (data.get('details') as string)?.trim(),
+    }
+
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
       if (res.ok) {
         setSubmitted(true)
+      } else {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || 'Failed to send')
       }
     } catch {
-      const name = data.get('name') as string
-      const email = data.get('email') as string
-      const projectType = data.get('projectType') as string
-      const budget = data.get('budget') as string
-      const details = data.get('details') as string
-      const subject = encodeURIComponent(`New project inquiry from ${name}`)
+      const subject = encodeURIComponent(`New project inquiry from ${payload.name}`)
       const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nProject type: ${projectType}\nBudget: ${budget}\n\nDetails:\n${details}`
+        `Name: ${payload.name}\nBusiness: ${payload.business}\nEmail: ${payload.email}\nProject type: ${payload.projectType}\nBudget: ${payload.budget}\n\nDetails:\n${payload.details}`
       )
       window.location.href = `mailto:riley@graphicdefine.com?subject=${subject}&body=${body}`
     }

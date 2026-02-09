@@ -30,4 +30,7 @@ Static output is in `dist/`. The `api/` folder is used by Vercel as serverless f
 
 3. **In Vercel:** [vercel.com/new](https://vercel.com/new) → Import your GitHub repo. Framework Preset: **Vite**. Build Command: `npm run build`. Output Directory: `dist`. Leave as-is.
 
-4. **Environment variable:** In the Vercel project → Settings → Environment Variables, add `GEMINI_API_KEY` with your [Google AI Studio](https://aistudio.google.com/apikey) key (needed for the chat widget). Redeploy after adding it.
+4. **Environment variables:** In the Vercel project → Settings → Environment Variables, add:
+   - `GEMINI_API_KEY` – your [Google AI Studio](https://aistudio.google.com/apikey) key (chat widget).
+   - `RESEND_API_KEY` – your [Resend](https://resend.com) API key (contact form emails go to riley@graphicdefine.com).  
+   Redeploy after adding them.
