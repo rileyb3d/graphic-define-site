@@ -66,7 +66,11 @@ export default function ContactPage() {
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Something went wrong.'
-      setSubmitError(message.endsWith(' at ') ? message : `${message} If you prefer, email us directly at `)
+      const isResendTestingLimit = message.includes('only send testing emails') || message.includes('verify a domain')
+      const friendlyMessage = isResendTestingLimit
+        ? 'Form delivery is being set up. Please email us directly at '
+        : `${message} If you prefer, email us directly at `
+      setSubmitError(friendlyMessage)
     }
     setSending(false)
   }

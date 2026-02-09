@@ -32,5 +32,6 @@ Static output is in `dist/`. The `api/` folder is used by Vercel as serverless f
 
 4. **Environment variables:** In the Vercel project → Settings → Environment Variables, add:
    - `GEMINI_API_KEY` – your [Google AI Studio](https://aistudio.google.com/apikey) key (chat widget).
-   - `RESEND_API_KEY` – your [Resend](https://resend.com) API key (contact form emails go to riley@graphicdefine.com).  
-   Redeploy after adding them.
+   - `RESEND_API_KEY` – your [Resend](https://resend.com) API key (contact form).
+   - To send form submissions to riley@graphicdefine.com (not just your Resend account email): verify **graphicdefine.com** at [resend.com/domains](https://resend.com/domains), add the DNS records they give you, then add `CONTACT_FROM_EMAIL` = `Graphic Define <contact@graphicdefine.com>` (or another address on that domain).  
+   Redeploy after adding or changing env vars.
