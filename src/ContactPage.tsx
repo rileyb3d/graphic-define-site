@@ -65,7 +65,7 @@ export default function ContactPage() {
         throw new Error(err.error || 'Failed to send')
       }
     } catch {
-      setSubmitError('Something went wrong sending your message. Please email us directly at riley@graphicdefine.com.')
+      setSubmitError('Something went wrong sending your message. Please email us directly at ')
     }
     setSending(false)
   }
@@ -252,10 +252,11 @@ export default function ContactPage() {
 
                     {submitError && (
                       <div className="rounded-xl border border-[var(--color-gd-border)] bg-[var(--color-gd-bg-elevated)] px-4 py-3 text-sm text-[var(--color-gd-muted)]">
-                        {submitError}{' '}
+                        {submitError}
                         <a href="mailto:riley@graphicdefine.com" className="text-[var(--color-gd-text)] underline hover:no-underline">
                           riley@graphicdefine.com
                         </a>
+                        .
                       </div>
                     )}
 
