@@ -98,7 +98,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
 
     // Convert client messages to Gemini history format (exclude last message; we'll send it separately)
-    const history = messages.slice(0, -1).map((m) => ({
+    // Drop any leading bot messages — Gemini requires history to start with role 'user'
+    const rawHistory = messages.slice(0, -1)
+    const firstUserIdx = rawHistory.findIndex((m) => m.role === 'user')
+    const trimmed = firstUserIdx >= 0 ? rawHistory.slice(firstUserIdx) : []
+    const history = trimmed.map((m) => ({
       role: m.role === 'bot' ? ('model' as const) : ('user' as const),
       parts: [{ text: m.text }],
     }))
