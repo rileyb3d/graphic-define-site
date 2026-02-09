@@ -65,12 +65,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (error) {
       console.error('Resend error:', error)
-      return res.status(500).json({ error: 'Failed to send' })
+      const message = typeof error === 'object' && error !== null && 'message' in error ? String((error as { message: string }).message) : 'Failed to send'
+      return res.status(500).json({ error: message })
     }
 
     return res.status(200).json({ ok: true })
   } catch (err) {
     console.error('Contact form error:', err)
-    return res.status(500).json({ error: 'Failed to send' })
+    const message = err instanceof Error ? err.message : 'Failed to send'
+    return res.status(500).json({ error: message })
   }
 }

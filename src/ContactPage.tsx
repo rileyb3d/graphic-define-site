@@ -64,8 +64,9 @@ export default function ContactPage() {
         const err = await res.json().catch(() => ({}))
         throw new Error(err.error || 'Failed to send')
       }
-    } catch {
-      setSubmitError('Something went wrong sending your message. Please email us directly at ')
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'Something went wrong.'
+      setSubmitError(message.endsWith(' at ') ? message : `${message} If you prefer, email us directly at `)
     }
     setSending(false)
   }
