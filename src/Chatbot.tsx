@@ -47,23 +47,32 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: payload }),
       })
 
-      const data = await res.json()
+      let data: { reply?: string; error?: string } = {}
+      try {
+        data = await res.json()
+      } catch {
+        const snippet = await res.text().then((t) => t.slice(0, 200).replace(/\s+/g, ' ').trim())
+        throw new Error(`(${res.status}) ${snippet || 'Non-JSON response'}`)
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || 'Request failed')
+        throw new Error(data.error || `Request failed (${res.status})`)
       }
 
       setMessages((prev) => [
         ...prev,
         { id: Date.now(), role: 'bot', text: data.reply ?? '' },
       ])
-    } catch {
+    } catch (e) {
+      const errMsg = e instanceof Error ? e.message : String(e)
+      const fallback =
+        "I'm having trouble connecting right now. You can reach us directly at riley@graphicdefine.com or through our Contact page."
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now(),
           role: 'bot',
-          text: "I'm having trouble connecting right now. You can reach us directly at riley@graphicdefine.com or through our Contact page.",
+          text: errMsg ? `Chat error: ${errMsg}\n\n${fallback}` : fallback,
         },
       ])
     }

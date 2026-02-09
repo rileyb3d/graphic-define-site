@@ -93,7 +93,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const genAI = new GoogleGenerativeAI(apiKey)
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-1.5-flash',
       systemInstruction: SITE_CONTEXT,
     })
 
@@ -115,6 +115,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ reply })
   } catch (err) {
     console.error('Gemini API error:', err)
-    return res.status(500).json({ error: 'Failed to get reply' })
+    const message = err instanceof Error ? err.message : 'Failed to get reply'
+    return res.status(500).json({ error: message })
   }
 }
