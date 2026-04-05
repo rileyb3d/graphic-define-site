@@ -302,7 +302,7 @@ export default function Layout() {
                 <img src="/logo.png" alt="" className="h-7 w-7 rounded-md object-contain brightness-0 invert" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-12">
+            <div className="grid grid-cols-2 gap-8 sm:gap-12">
               <div>
                 <h4 className="text-xs font-semibold text-[var(--color-gd-text)] mb-3">Work</h4>
                 <ul className="space-y-2">
@@ -330,16 +330,6 @@ export default function Layout() {
                     <Link to="/contact" className="text-xs text-[var(--color-gd-muted)] hover:text-[var(--color-gd-text)] transition-colors">
                       Contact
                     </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-xs font-semibold text-[var(--color-gd-text)] mb-3">Connect</h4>
-                <ul className="space-y-2">
-                  <li>
-                    <a href="mailto:riley@graphicdefine.com" className="text-xs text-[var(--color-gd-muted)] hover:text-[var(--color-gd-text)] transition-colors">
-                      Email
-                    </a>
                   </li>
                 </ul>
               </div>
