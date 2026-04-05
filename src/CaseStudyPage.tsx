@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { CASE_STUDIES } from './data'
 import { useInView } from './hooks/useInView'
 
@@ -24,6 +24,99 @@ function AnimatedSection({
   )
 }
 
+function Lightbox({
+  images,
+  index,
+  onClose,
+  onNav,
+}: {
+  images: { src: string; alt: string }[]
+  index: number
+  onClose: () => void
+  onNav: (dir: -1 | 1) => void
+}) {
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      else if (e.key === 'ArrowLeft') onNav(-1)
+      else if (e.key === 'ArrowRight') onNav(1)
+    },
+    [onClose, onNav],
+  )
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', handleKey)
+      document.body.style.overflow = ''
+    }
+  }, [handleKey])
+
+  const img = images[index]
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Close */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+        aria-label="Close"
+      >
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Prev */}
+      {images.length > 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onNav(-1) }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+          aria-label="Previous image"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      )}
+
+      {/* Image */}
+      <div
+        className="max-h-[90vh] max-w-[90vw]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
+          draggable={false}
+        />
+        <p className="mt-3 text-center text-sm text-white/70">
+          {img.alt}
+          <span className="ml-2 text-white/40">{index + 1} / {images.length}</span>
+        </p>
+      </div>
+
+      {/* Next */}
+      {images.length > 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onNav(1) }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+          aria-label="Next image"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      )}
+    </div>
+  )
+}
+
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>()
   const study = CASE_STUDIES.find((s) => s.slug === slug)
@@ -35,6 +128,23 @@ export default function CaseStudyPage() {
   if (!study) return <Navigate to="/" replace />
 
   const otherStudies = CASE_STUDIES.filter((s) => s.slug !== slug)
+
+  const allImages = [
+    { src: study.image, alt: `${study.site} homepage` },
+    ...study.gallery,
+  ]
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const openLightbox = (i: number) => setLightboxIndex(i)
+  const closeLightbox = () => setLightboxIndex(null)
+  const navLightbox = useCallback(
+    (dir: -1 | 1) => {
+      setLightboxIndex((prev) =>
+        prev === null ? null : (prev + dir + allImages.length) % allImages.length,
+      )
+    },
+    [allImages.length],
+  )
 
   return (
     <main className="pt-14">
@@ -82,7 +192,11 @@ export default function CaseStudyPage() {
       {/* Hero screenshot */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <div className="rounded-2xl border border-[var(--color-gd-border)] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => openLightbox(0)}
+            className="w-full rounded-2xl border border-[var(--color-gd-border)] overflow-hidden cursor-zoom-in transition-all hover:border-[var(--color-gd-muted)]/60 hover:shadow-xl hover:shadow-black/30"
+          >
             <img
               src={study.image}
               alt={`${study.site} screenshot`}
@@ -90,7 +204,7 @@ export default function CaseStudyPage() {
               loading="eager"
               draggable={false}
             />
-          </div>
+          </button>
         </AnimatedSection>
       </section>
 
@@ -101,7 +215,11 @@ export default function CaseStudyPage() {
             <div className="grid gap-4 sm:grid-cols-3">
               {study.gallery.map((img, i) => (
                 <AnimatedSection key={img.src} style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="rounded-xl border border-[var(--color-gd-border)] overflow-hidden bg-black/30">
+                  <button
+                    type="button"
+                    onClick={() => openLightbox(i + 1)}
+                    className="w-full rounded-xl border border-[var(--color-gd-border)] overflow-hidden bg-black/30 cursor-zoom-in transition-all hover:border-[var(--color-gd-muted)]/60 hover:shadow-lg hover:shadow-black/30 hover:scale-[1.02]"
+                  >
                     <img
                       src={img.src}
                       alt={img.alt}
@@ -109,7 +227,7 @@ export default function CaseStudyPage() {
                       loading="lazy"
                       draggable={false}
                     />
-                  </div>
+                  </button>
                   <p className="mt-2 text-xs text-[var(--color-gd-muted)] text-center">{img.alt}</p>
                 </AnimatedSection>
               ))}
@@ -241,6 +359,16 @@ export default function CaseStudyPage() {
           </div>
         </AnimatedSection>
       </section>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={allImages}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onNav={navLightbox}
+        />
+      )}
     </main>
   )
 }
