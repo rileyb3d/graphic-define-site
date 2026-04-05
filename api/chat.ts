@@ -50,14 +50,6 @@ Key features: Modern accessible UI, automated lead capture with follow-up sequen
 Results: 3x lead conversion increase, significant recurring donor growth, 80% reduction in manual follow-up.
 Tech: React, Next.js, Tailwind CSS, Stripe, SendGrid, Vercel
 
-=== CASE STUDY: SCRAPCONOMY ===
-URL: scrapconomy.com
-Type: Custom crowdfunding platform
-Description: Built a custom crowdfunding platform from scratch so the client didn't have to give 5-10% to Kickstarter or Indiegogo. Complete ownership of campaign, analytics, and marketing data. Hit funding goal in the first week. Could pivot messaging and targeting in real time.
-Key features: Custom crowdfunding engine, real-time progress tracking, secure payments with no platform fees, backer management, reward tiers, built-in analytics, email campaigns, social sharing, admin dashboard.
-Results: Funding goal met in week one, $0 platform fees, 100% data ownership.
-Tech: React, Node.js, PostgreSQL, Stripe, Analytics, Vercel
-
 === CASE STUDY: RILEYB3D ===
 URL: rileyb3d.com
 Type: Creator platform for Blender and Godot
