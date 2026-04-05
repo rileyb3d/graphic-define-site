@@ -94,6 +94,30 @@ export default function CaseStudyPage() {
         </AnimatedSection>
       </section>
 
+      {/* Gallery */}
+      {study.gallery.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {study.gallery.map((img, i) => (
+                <AnimatedSection key={img.src} style={{ transitionDelay: `${i * 80}ms` }}>
+                  <div className="rounded-xl border border-[var(--color-gd-border)] overflow-hidden bg-black/30">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="block w-full h-auto"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-[var(--color-gd-muted)] text-center">{img.alt}</p>
+                </AnimatedSection>
+              ))}
+            </div>
+          </AnimatedSection>
+        </section>
+      )}
+
       {/* Results strip */}
       <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <AnimatedSection>
