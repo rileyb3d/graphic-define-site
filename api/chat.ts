@@ -43,7 +43,7 @@ Results: 300+ assets hosted, fully automated payouts, self-service seller onboar
 Tech: React, Node.js, PostgreSQL, Stripe, AWS S3, Three.js
 
 === CASE STUDY: LITTLE LAMBS OF UTAH ===
-URL: littlelambsofutah.com
+URL: www.littlelambsofutah.org
 Type: Nonprofit redesign and lead automation
 Description: Complete digital overhaul for a nonprofit. Previous site was static and required constant manual effort. Redesigned with automated lead capture, recurring donor management, and volunteer coordination. Works around the clock to convert visitors into supporters.
 Key features: Modern accessible UI, automated lead capture with follow-up sequences, recurring donor management, volunteer signup system, event management, email automation, analytics dashboard.
@@ -57,6 +57,14 @@ Description: Built a custom crowdfunding platform from scratch so the client did
 Key features: Custom crowdfunding engine, real-time progress tracking, secure payments with no platform fees, backer management, reward tiers, built-in analytics, email campaigns, social sharing, admin dashboard.
 Results: Funding goal met in week one, $0 platform fees, 100% data ownership.
 Tech: React, Node.js, PostgreSQL, Stripe, Analytics, Vercel
+
+=== CASE STUDY: RILEYB3D ===
+URL: rileyb3d.com
+Type: Creator platform for Blender and Godot
+Description: A tools, training, and asset platform for Blender and Godot creators. Free 3D asset library with packed .blend files, structured training courses, custom tools, a Blender extension, and project showcases. Multi-language support for six languages, user accounts, donation system with live goal tracking, and full-text search.
+Key features: Free 3D asset library, structured training courses, custom tools and Blender extension, multi-language support (6 languages), user accounts, donation system with live tracking, full-text search, project showcases.
+Results: 6 languages supported, 100% free asset access, $0 training cost.
+Tech: React, Next.js, Tailwind CSS, PostgreSQL, Vercel, i18n
 
 === CONTACT ===
 To get in touch, visitors should go to the Contact page (/contact). They fill out a form with their name, business name, email, project type (new site or redesign), budget range, and project details. Graphic Define offers a free mockup. They respond within 24 hours. Email: riley@graphicdefine.com
