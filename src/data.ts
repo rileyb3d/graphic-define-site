@@ -14,7 +14,7 @@ export const VALUE_PILLARS = [
     description: 'Thoughtful architecture and automation mean less hand-holding for you, not less care from us.',
   },
   {
-    title: 'AI-powered automation',
+    title: 'Smart automation',
     description: 'We build the automation with real expertise so your workflows run smooth and you focus on your business.',
   },
 ]

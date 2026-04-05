@@ -12,7 +12,7 @@ Graphic Define is a web design and development agency. They build complex system
 Graphic Define offers two services: building new websites from scratch, and redesigning existing sites. Every project is custom-built with real expertise, not templates. They focus on:
 - Fast deliverables: Clear scope, clear deadlines, real craft. Sites go live when you need them.
 - Low maintenance: Thoughtful architecture and automation mean less hand-holding, not less care.
-- AI-powered automation: They build automation with real expertise so workflows run smooth.
+- Smart automation: They build automation with real expertise so workflows run smooth.
 
 === PROCESS (4 phases) ===
 1. Discovery: Understanding the business, goals, current systems, bottlenecks. Business model analysis, pain point audit, user journey mapping, technical feasibility.
