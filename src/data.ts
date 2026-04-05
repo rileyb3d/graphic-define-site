@@ -36,36 +36,6 @@ export interface CaseStudy {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    slug: 'offworld-depot',
-    site: 'Offworld Depot',
-    url: 'https://offworlddepot.com',
-    tagline: '3D marketplace',
-    description: 'A production library of 3D models, textures, and music with automated seller payouts based on site subscriptions.',
-    highlight: 'Complex marketplace, fully automated payouts.',
-    image: '/hero-offworld.png',
-    gallery: [
-      { src: '/gallery/offworld-library.png', alt: 'Asset library browse page' },
-      { src: '/gallery/offworld-asset.png', alt: 'Individual asset detail page' },
-      { src: '/gallery/offworld-pricing.png', alt: 'Subscription pricing page' },
-    ],
-    overview: 'Offworld Depot is a full-scale 3D production asset library built for game developers, filmmakers, and 3D artists. It houses hundreds of models, textures, and original music tracks. The platform has a complete seller account system where artists upload their work and automatically receive profit-share payouts calculated from overall site subscription revenue. No manual invoicing, no cut checks. The entire revenue pipeline from subscriber payment to artist payout is automated.',
-    features: [
-      'Full 3D asset library with search, filtering, and categorization',
-      'Subscription-based access with tiered pricing',
-      'Automated seller onboarding and account management',
-      'Profit-share payout engine based on subscription revenue',
-      'Asset preview system with 3D model viewers',
-      'Download management and license tracking',
-      'Admin dashboard for content moderation and analytics',
-    ],
-    results: [
-      { label: 'Assets hosted', value: '300+' },
-      { label: 'Payout system', value: 'Fully automated' },
-      { label: 'Seller onboarding', value: 'Self-service' },
-    ],
-    tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS S3', 'Three.js'],
-  },
-  {
     slug: 'little-lambs',
     site: 'Little Lambs of Utah',
     url: 'https://www.littlelambsofutah.org',
@@ -94,6 +64,36 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Manual follow-up', value: 'Reduced 80%' },
     ],
     tech: ['React', 'Next.js', 'Tailwind CSS', 'Stripe', 'SendGrid', 'Vercel'],
+  },
+  {
+    slug: 'offworld-depot',
+    site: 'Offworld Depot',
+    url: 'https://offworlddepot.com',
+    tagline: '3D marketplace',
+    description: 'A production library of 3D models, textures, and music with automated seller payouts based on site subscriptions.',
+    highlight: 'Complex marketplace, fully automated payouts.',
+    image: '/hero-offworld.png',
+    gallery: [
+      { src: '/gallery/offworld-library.png', alt: 'Asset library browse page' },
+      { src: '/gallery/offworld-asset.png', alt: 'Individual asset detail page' },
+      { src: '/gallery/offworld-pricing.png', alt: 'Subscription pricing page' },
+    ],
+    overview: 'Offworld Depot is a full-scale 3D production asset library built for game developers, filmmakers, and 3D artists. It houses hundreds of models, textures, and original music tracks. The platform has a complete seller account system where artists upload their work and automatically receive profit-share payouts calculated from overall site subscription revenue. No manual invoicing, no cut checks. The entire revenue pipeline from subscriber payment to artist payout is automated.',
+    features: [
+      'Full 3D asset library with search, filtering, and categorization',
+      'Subscription-based access with tiered pricing',
+      'Automated seller onboarding and account management',
+      'Profit-share payout engine based on subscription revenue',
+      'Asset preview system with 3D model viewers',
+      'Download management and license tracking',
+      'Admin dashboard for content moderation and analytics',
+    ],
+    results: [
+      { label: 'Assets hosted', value: '300+' },
+      { label: 'Payout system', value: 'Fully automated' },
+      { label: 'Seller onboarding', value: 'Self-service' },
+    ],
+    tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS S3', 'Three.js'],
   },
   {
     slug: 'rileyb3d',
